@@ -19,6 +19,9 @@ import com.jeromecompsci.postmaker.core.fieldrenderers.NullRenderer;
  */
 public class PostModel {
     static String BLURB_STRUCTURE = "%s. See %s for more details."; // hardcoded structure for now
+    static String DEFAULT_PRIV_PROPERTIES_LOCATION = "priv.properties";
+    static String DEFAULT_USER_LIST_LOCATION = "users.csv";
+
     String titleSource;
     String fullTextSource;
     String blurbTextSource;
@@ -47,10 +50,12 @@ public class PostModel {
         this.render(NullRenderer.INSTANCE, MarkdownHTMLRenderer.INSTANCE, NullRenderer.INSTANCE);
     }
 
-    public void render(FieldRenderer titleRenderer, FieldRenderer fullTextRenderer, FieldRenderer blurbRenderer) {
-        this.renderedTitle = titleRenderer.getRenderedString(this.titleSource);
-        this.renderedFullText = fullTextRenderer.getRenderedString(this.fullTextSource);
-        this.renderedBlurb = blurbRenderer.getRenderedString(String.format(BLURB_STRUCTURE, this.blurbTextSource, this.primaryPresenceLink));
+    /**
+     * Default load...() method that loads privProperties, userList, etc. from default locations
+     */
+    public void loadAllExternalResources() throws IOException {
+        this.loadPropertiesFromFile(new File(DEFAULT_PRIV_PROPERTIES_LOCATION));
+        this.loadUserListFromFile(new File(DEFAULT_USER_LIST_LOCATION));
     }
 
     public String getRenderedTitle() {
@@ -64,6 +69,13 @@ public class PostModel {
     public String getRenderedBlurb() {
         return renderedBlurb;
     }
+
+    public void render(FieldRenderer titleRenderer, FieldRenderer fullTextRenderer, FieldRenderer blurbRenderer) {
+        this.renderedTitle = titleRenderer.getRenderedString(this.titleSource);
+        this.renderedFullText = fullTextRenderer.getRenderedString(this.fullTextSource);
+        this.renderedBlurb = blurbRenderer.getRenderedString(String.format(BLURB_STRUCTURE, this.blurbTextSource, this.primaryPresenceLink));
+    }
+
 
     public void loadPropertiesFromFile(File propertiesFile) throws IOException {
         privProperties.load(new FileReader(propertiesFile));
