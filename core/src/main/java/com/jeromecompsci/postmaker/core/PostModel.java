@@ -1,18 +1,23 @@
 package com.jeromecompsci.postmaker.core;
 
-import java.net.URL;
-import java.util.Date;
+import java.io.File;
+import java.util.List;
+import java.util.Properties;
+import org.apache.commons.csv.CSVRecord;
 
 /**
  * @author derek
  */
 public class PostModel {
-    static String BLURB_STRUCTURE = "%s. See %s for more details.";
+    static String BLURB_STRUCTURE = "%s. See %s for more details."; // hardcoded structure for now
     String titleSource;
     String fullTextSource;
     String blurbTextSource;
     String primaryPresenceLink;
     EventModel event;
+
+    List<CSVRecord> userList; // hardcoded to CSVRecord for now.
+    Properties privProperties;
 
     private String renderedTitle;
     private String renderedFullText;
@@ -42,6 +47,14 @@ public class PostModel {
 
     public String getRenderedBlurb() {
         return renderedBlurb;
+    }
+
+    public void loadPropertiesFromFile(File propertiesFile) {
+
+    }
+
+    public void loadUserListFromFile(File userListFile) {
+
     }
 
 }
