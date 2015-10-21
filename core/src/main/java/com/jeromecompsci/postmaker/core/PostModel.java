@@ -7,6 +7,7 @@ import java.util.Date;
  * @author derek
  */
 public class PostModel {
+    static String BLURB_STRUCTURE = "%s. See %s for more details.";
     String titleSource;
     String fullTextSource;
     String blurbTextSource;
@@ -27,8 +28,8 @@ public class PostModel {
 
     public void render(FieldRenderer titleRenderer, FieldRenderer fullTextRenderer, FieldRenderer blurbRenderer) {
         this.renderedTitle = titleRenderer.getRenderedString(this.titleSource);
-        this.renderedFullText = fullTextRenderer.getRenderedString(this.titleSource);
-        this.renderedBlurb = blurbRenderer.getRenderedString(this.blurbTextSource);
+        this.renderedFullText = fullTextRenderer.getRenderedString(this.fullTextSource);
+        this.renderedBlurb = blurbRenderer.getRenderedString(String.format(BLURB_STRUCTURE, this.blurbTextSource, this.primaryPresenceLink));
     }
 
     public String getRenderedTitle() {
