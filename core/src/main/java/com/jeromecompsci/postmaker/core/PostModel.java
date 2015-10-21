@@ -1,8 +1,14 @@
 package com.jeromecompsci.postmaker.core;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 /**
@@ -17,7 +23,7 @@ public class PostModel {
     EventModel event;
 
     List<CSVRecord> userList; // hardcoded to CSVRecord for now.
-    Properties privProperties;
+    Properties privProperties = new Properties();
 
     private String renderedTitle;
     private String renderedFullText;
@@ -49,12 +55,13 @@ public class PostModel {
         return renderedBlurb;
     }
 
-    public void loadPropertiesFromFile(File propertiesFile) {
-
+    public void loadPropertiesFromFile(File propertiesFile) throws IOException {
+        privProperties.load(new FileReader(propertiesFile));
     }
 
-    public void loadUserListFromFile(File userListFile) {
-
+    public void loadUserListFromFile(File userListFile) throws IOException {
+        CSVParser parser = CSVParser.parse(userListFile, Charset.forName("UTF-8"), CSVFormat.DEFAULT);
+        this.userList = parser.getRecords();
     }
 
 }
