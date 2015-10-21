@@ -11,6 +11,9 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+import com.jeromecompsci.postmaker.core.fieldrenderers.MarkdownHTMLRenderer;
+import com.jeromecompsci.postmaker.core.fieldrenderers.NullRenderer;
+
 /**
  * @author derek
  */
@@ -35,6 +38,13 @@ public class PostModel {
 
     public void associateEvent(EventModel event) {
         this.event = event;
+    }
+
+    /**
+     * Default render() method with no customization of rendering.
+     */
+    public void render() {
+        this.render(NullRenderer.INSTANCE, MarkdownHTMLRenderer.INSTANCE, NullRenderer.INSTANCE);
     }
 
     public void render(FieldRenderer titleRenderer, FieldRenderer fullTextRenderer, FieldRenderer blurbRenderer) {
