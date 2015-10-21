@@ -6,7 +6,8 @@ import org.pegdown.PegDownProcessor;
 /**
  * @author derek
  */
-public class MarkdownHTMLRenderer implements FieldRenderer{
+public enum MarkdownHTMLRenderer implements FieldRenderer{
+    INSTANCE;
     private PegDownProcessor pegDownProcessor;
 
     public String getRenderedString(String rawString) {
@@ -17,8 +18,7 @@ public class MarkdownHTMLRenderer implements FieldRenderer{
     }
 
     public static void main(String[] args) {
-        FieldRenderer r = new MarkdownHTMLRenderer();
-        String s = r.getRenderedString("" +
+        String s = INSTANCE.getRenderedString("" +
                 "## Hello World\n\n" +
                 "* Hi this is some text\n" +
                 "* Hi, http://google.com/\n");

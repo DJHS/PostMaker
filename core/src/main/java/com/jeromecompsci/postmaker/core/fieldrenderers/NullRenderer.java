@@ -5,7 +5,8 @@ import com.jeromecompsci.postmaker.core.FieldRenderer;
 /**
  * @author derek
  */
-public class NullRenderer implements FieldRenderer{
+public enum NullRenderer implements FieldRenderer{
+    INSTANCE;
     public String getRenderedString(String rawString) {
         return rawString;
     }
