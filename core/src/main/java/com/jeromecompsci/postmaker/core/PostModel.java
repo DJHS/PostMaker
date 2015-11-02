@@ -22,14 +22,14 @@ public class PostModel {
     static String DEFAULT_PRIV_PROPERTIES_LOCATION = "priv.properties";
     static String DEFAULT_USER_LIST_LOCATION = "users.csv";
 
-    String titleSource;
-    String fullTextSource;
-    String blurbTextSource;
-    String primaryPresenceLink;
-    EventModel event;
+    public String titleSource;
+    public String fullTextSource;
+    public String blurbTextSource;
+    public String primaryPresenceLink;
+    public EventModel event;
 
-    List<CSVRecord> userList; // hardcoded to CSVRecord for now.
-    Properties privProperties = new Properties();
+    public List<CSVRecord> userList; // hardcoded to CSVRecord for now.
+    public Properties privProperties = new Properties();
 
     private String renderedTitle;
     private String renderedFullText;
@@ -37,10 +37,6 @@ public class PostModel {
 
     public PostModel() {
 
-    }
-
-    public void associateEvent(EventModel event) {
-        this.event = event;
     }
 
     /**
