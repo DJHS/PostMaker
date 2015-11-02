@@ -12,7 +12,8 @@ repositories {
 dependencies {
     compile 'org.pegdown:pegdown:1.6.0'
     compile 'org.apache.commons:commons-csv:1.2'
-    compile 'org.apache.httpcomponents:httpclient:3.1'
+    compile 'com.mashape.unirest:unirest-java:1.4.7'
+    //compile 'us.monoid.web:resty:0.3.2'
     //testCompile 'junit:junit:4.11'
 }
 
