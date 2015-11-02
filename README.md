@@ -11,17 +11,23 @@ Provide a user interface to create an "updates" or "events" post to the followin
 
 ### When contributing
 **Do NOT commit to source control any items that should be kept secret: usernames, passwords, API keys, tokens, etc.**
-These will be sourced from a configuration file that will be distributed out-of-band.
+These will be sourced from configuration files that will be distributed out-of-band.
 
 ### Design
-App made up of three parts
-* Central UI responsible for
-  * All the data input, including
-    * Post text (maybe do Markdown to HTML conversion for wordpress :) )
-    * Blurb text (with link generation and formatting logic after contact with WordPress)
-    * Event date
-  * Firing off each `Component` with a `PostModel`, the one for the website first; and displaying a nice progress indicator interface for each
-  * Loading the configuration file with the secret stuff
-* `PostModel` a dumb language Object with fields corresponding to the input field
-* `Component`s that contact their respective Web Services to accomplish the task. They will recieve a `PostModel` and configuration data from the Central UI.
-  * Individual `Component`s for each service: one for Wordpress, one for Facebook, etc.
+##### The App (as a whole)
+PostMaker is divided into several modules:
+* The `core` module with all the code to actually do the work (contacting APIs, etc.)
+* Many UI modules responsible for making a user interface to the `core` module
+
+##### The `core` module
+
+`core` is made up of several components
+* `PostModel`: the central object holding all the data necessary to make a post, including
+	* All post content: title, blurb, full text, etc.
+		* blurb being the shortened version of the post to be published to non-primary locations with a link to the primary location
+	* URL to the primary post location that will be set after the post has first been published there (e.g. to Wordpress)
+	* `privProperties` and `userList`: a Properties object and a list of records that contain sensitive data such as API keys and email addresses of members, respectively (loaded from their files that will be distributed out-of-band)
+	* `EventModel` reference if the Post is to be associated with an event (with a start date, end date, duration, location, etc. -- for use in the likes of Google Calendar)
+* `Publisher`s: responsible for contacting their respective Web Services to actually publish the post. They will only the `PostModel`, which will have all the info needed.
+	* One publisher for each service: WordpressPublisher, FacebookPublisher, EmailPublisher, etc.
+* `FieldRenderer`s which take raw string input from the `PostModel` and render them to some nice format appropriate for some service (e.g. HTML, etc.)
