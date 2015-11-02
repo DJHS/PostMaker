@@ -26,6 +26,7 @@ public class PostModel {
     public String fullTextSource;
     public String blurbTextSource;
     public String primaryPresenceLink;
+    public String categories;  // comma-separated list of categories
     public EventModel event;
 
     public List<CSVRecord> userList; // hardcoded to CSVRecord for now.
@@ -50,8 +51,10 @@ public class PostModel {
      * Default load...() method that loads privProperties, userList, etc. from default locations
      */
     public void loadAllExternalResources() throws IOException {
-        this.loadPropertiesFromFile(new File(DEFAULT_PRIV_PROPERTIES_LOCATION));
-        this.loadUserListFromFile(new File(DEFAULT_USER_LIST_LOCATION));
+        String priv_properties_loc = System.getProperty("postmaker.privp.loc", DEFAULT_PRIV_PROPERTIES_LOCATION);
+        String user_list_loc = System.getProperty("postmaker.userl.loc", DEFAULT_USER_LIST_LOCATION);
+        this.loadPropertiesFromFile(new File(priv_properties_loc));
+        this.loadUserListFromFile(new File(user_list_loc));
     }
 
     public String getRenderedTitle() {
