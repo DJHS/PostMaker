@@ -27,15 +27,39 @@ public class MainWindow extends JFrame {
 
     InputPanel inputPanel;
     ActionPanel actionPanel;
+    ProgressPanel progressPanel = null;
 
-    public void getPostModel() {
+    public PostModel getPostModel() {
         PostModel post = new PostModel();
         inputPanel.populatePostModel(post);
+        return post;
     }
 
     public void doPerformPost() {
         List<String> publisherNames = actionPanel.getSelectedPublisherNames();
-        System.out.println("doPerformPost in MainWindow called!");
+        PostModel post = this.getPostModel();
+        ProgressPanel panel = new ProgressPanel(post, publisherManager, publisherNames);
+        this.showProgressPanel(panel);
+        panel.beginPublishing();
+    }
+
+    public void showInputPanel() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override public void run() {
+                remove(progressPanel);
+                add(inputPanel, BorderLayout.CENTER);
+            }
+        });
+    }
+
+    public void showProgressPanel(final ProgressPanel panel) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override public void run() {
+                remove(inputPanel);
+                progressPanel = panel;
+                add(progressPanel, BorderLayout.CENTER);
+            }
+        });
     }
 
     public void initComponents() {
