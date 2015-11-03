@@ -1,5 +1,7 @@
 package com.jeromecompsci.postmaker.swingui;
 
+import com.jeromecompsci.postmaker.core.PostModel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,6 +12,13 @@ public class InputPanel extends JPanel {
     public InputPanel() {
         initComponents();
         initLayout();
+    }
+
+    public void populatePostModel(PostModel post) {
+        post.titleSource = this.titleField.getText();
+        post.fullTextSource = this.fullTextArea.getText();
+        post.blurbTextSource = this.blurbTextArea.getText();
+        post.categories = this.categoriesField.getText();
     }
 
     JTextField titleField;
