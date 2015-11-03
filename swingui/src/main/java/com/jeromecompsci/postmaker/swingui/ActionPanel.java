@@ -1,22 +1,51 @@
 package com.jeromecompsci.postmaker.swingui;
 
+import com.jeromecompsci.postmaker.core.PublisherManager;
+
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  * @author derek
  */
 public class ActionPanel extends JPanel {
-    public ActionPanel() {
+    private PublisherManager publisherManager;
+    private PerformPostCallback performPostCallback = null;
+
+    public ActionPanel(PublisherManager publisherManager) {
+        this.publisherManager = publisherManager;
         initComponents();
         initLayout();
     }
 
-    JButton makePostButton;
+    interface PerformPostCallback {
+        void performPost();
+    }
 
+    public void registerPerformPostCallback(PerformPostCallback callback) {
+        this.performPostCallback = callback;
+    }
+
+    public List<String> getSelectedPublisherNames() {
+        // TODO: Actually implement this
+        return null;
+    }
+
+    JButton makePostButton;
+    JPanel checkboxPanel;
 
     public void initComponents() {
         makePostButton = new JButton("Make Post!");
+        makePostButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent actionEvent) {
+                if (performPostCallback != null) {
+                    performPostCallback.performPost();
+                }
+            }
+        });
     }
 
     static final String NORTH = SpringLayout.NORTH;
