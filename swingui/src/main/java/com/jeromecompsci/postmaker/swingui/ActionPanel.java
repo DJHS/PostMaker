@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,8 +31,14 @@ public class ActionPanel extends JPanel {
     }
 
     public List<String> getSelectedPublisherNames() {
-        // TODO: Actually implement this
-        return null;
+        List<String> result = new ArrayList<String>();
+        for (int i=0; i<checkboxPanel.getComponentCount(); i++) {
+            JCheckBox checkBox = (JCheckBox) checkboxPanel.getComponent(i);
+            if (checkBox.isSelected()) {
+                result.add(checkBox.getText());
+            }
+        }
+        return result;
     }
 
     JButton makePostButton;
