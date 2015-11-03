@@ -46,6 +46,15 @@ public class ActionPanel extends JPanel {
                 }
             }
         });
+
+        checkboxPanel = new JPanel();
+        checkboxPanel.setLayout(new BoxLayout(checkboxPanel, BoxLayout.PAGE_AXIS));
+
+        for (String publisherName : publisherManager.getAllPublisherNames()) {
+            JCheckBox checkBox = new JCheckBox(publisherName);
+            checkBox.setSelected(true);
+            checkboxPanel.add(checkBox);
+        }
     }
 
     static final String NORTH = SpringLayout.NORTH;
@@ -55,6 +64,7 @@ public class ActionPanel extends JPanel {
 
     static final int B = 12; // Border (margin from edges)
     static final int S = 4; // Spacing (between components)
+    static final int INDENT = B + 14; // Indent in from border
 
     public void initLayout() {
         SpringLayout layout = new SpringLayout();
@@ -64,14 +74,18 @@ public class ActionPanel extends JPanel {
 
         this.add(postToLabel);
         this.add(makePostButton);
+        this.add(checkboxPanel);
 
         layout.putConstraint(NORTH, postToLabel, B, NORTH, this);
+        layout.putConstraint(NORTH, checkboxPanel, S, SOUTH, postToLabel);
         layout.putConstraint(SOUTH, makePostButton, -B, SOUTH, this);
 
         layout.putConstraint(WEST, postToLabel, B, WEST, this);
+        layout.putConstraint(WEST, checkboxPanel, INDENT, WEST, this);
         layout.putConstraint(WEST, makePostButton, B, WEST, this);
 
         layout.putConstraint(EAST, postToLabel, -B, EAST, this);
+        layout.putConstraint(EAST, checkboxPanel, -B, EAST, this);
         layout.putConstraint(EAST, makePostButton, -B, EAST, this);
 
         this.setPreferredSize(new Dimension(380, 300));
