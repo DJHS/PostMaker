@@ -1,16 +1,26 @@
 package com.jeromecompsci.postmaker.swingui;
 
 import javax.swing.*;
-import com.jeromecompsci.postmaker.core.PostModel;
+import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.EventQueue;
 
-import java.awt.*;
+import java.util.List;
+
+import com.jeromecompsci.postmaker.core.PostModel;
+import com.jeromecompsci.postmaker.core.PublisherManager;
+
 
 /**
  * @author derek
  */
 public class MainWindow extends JFrame {
+    PublisherManager publisherManager;
+
     public MainWindow() {
         super();
+        publisherManager = new PublisherManager();
         initComponents();
         initLayout();
     }
@@ -18,9 +28,24 @@ public class MainWindow extends JFrame {
     InputPanel inputPanel;
     ActionPanel actionPanel;
 
+    public void getPostModel() {
+        PostModel post = new PostModel();
+        inputPanel.populatePostModel(post);
+    }
+
+    public void doPerformPost() {
+        List<String> publisherNames = actionPanel.getSelectedPublisherNames();
+        System.out.println("doPerformPost in MainWindow called!");
+    }
+
     public void initComponents() {
         inputPanel = new InputPanel();
-        actionPanel = new ActionPanel();
+        actionPanel = new ActionPanel(this.publisherManager);
+        actionPanel.registerPerformPostCallback(new ActionPanel.PerformPostCallback() {
+            @Override public void performPost() {
+                doPerformPost();
+            }
+        });
     }
 
     public void initLayout() {
