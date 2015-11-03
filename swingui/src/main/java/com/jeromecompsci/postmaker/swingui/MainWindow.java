@@ -46,8 +46,13 @@ public class MainWindow extends JFrame {
     public void showInputPanel() {
         EventQueue.invokeLater(new Runnable() {
             @Override public void run() {
-                remove(progressPanel);
-                add(inputPanel, BorderLayout.CENTER);
+                if (progressPanel != null) {
+                    progressPanel.setVisible(false);
+                    remove(progressPanel);
+                    progressPanel = null;
+                    inputPanel.setVisible(true);
+                    add(inputPanel, BorderLayout.CENTER);
+                }
             }
         });
     }
@@ -55,9 +60,14 @@ public class MainWindow extends JFrame {
     public void showProgressPanel(final ProgressPanel panel) {
         EventQueue.invokeLater(new Runnable() {
             @Override public void run() {
-                remove(inputPanel);
-                progressPanel = panel;
-                add(progressPanel, BorderLayout.CENTER);
+                System.out.println("showProgressPanel() called.");
+                if (progressPanel == null) {
+                    inputPanel.setVisible(false);
+                    remove(inputPanel);
+                    progressPanel = panel;
+                    progressPanel.setVisible(true);
+                    add(progressPanel, BorderLayout.CENTER);
+                }
             }
         });
     }
