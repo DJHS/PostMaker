@@ -19,6 +19,8 @@ public class InputPanel extends JPanel {
 
     public void initComponents() {
         titleField = new JTextField();
+        Font defaultFont = titleField.getFont();
+        titleField.setFont(new Font(defaultFont.getName(), Font.BOLD, defaultFont.getSize() + 2));
         fullTextArea = new JTextArea();
         blurbTextArea = new JTextArea();
         categoriesField = new JTextField();
@@ -51,7 +53,7 @@ public class InputPanel extends JPanel {
         this.add(blurbTextArea);
         this.add(categoriesField);
 
-        titleField.setPreferredSize(new Dimension(100, 60));
+        titleField.setPreferredSize(new Dimension(100, 68));
         titleField.setMaximumSize(titleField.getPreferredSize());
 //        fullTextArea.setPreferredSize(new Dimension(400, 150));
 //        blurbTextArea.setPreferredSize(new Dimension(400, 120));
