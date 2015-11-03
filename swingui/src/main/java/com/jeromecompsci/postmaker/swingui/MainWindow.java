@@ -31,7 +31,7 @@ public class MainWindow extends JFrame {
         this.add(inputPanel, BorderLayout.CENTER);
 
         this.pack();
-        this.setMinimumSize(new Dimension(600, 500));
+        this.setMinimumSize(new Dimension(800, 700));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("PostMaker");
     }

@@ -28,12 +28,17 @@ public class InputPanel extends JPanel {
         BoxLayout layout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         this.setLayout(layout);
 
-        this.add(new JLabel("Title"));
+        JLabel titleLabel = new JLabel("Title");
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.add(titleLabel);
         titleField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         this.add(titleField);
         this.add(new JLabel("Content"));
+        fullTextArea.setPreferredSize(new Dimension(400, 150));
         this.add(fullTextArea);
         this.add(new JLabel("Blurb"));
+        blurbTextArea.setPreferredSize(new Dimension(400, 120));
+        blurbTextArea.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
         this.add(blurbTextArea);
         this.add(new JLabel("Categories"));
         categoriesField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
