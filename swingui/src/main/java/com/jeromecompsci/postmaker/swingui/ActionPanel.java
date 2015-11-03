@@ -83,6 +83,9 @@ public class ActionPanel extends JPanel {
         this.add(makePostButton);
         this.add(checkboxPanel);
 
+        makePostButton.setPreferredSize(new Dimension(100, 60));
+        makePostButton.setMaximumSize(makePostButton.getPreferredSize());
+
         layout.putConstraint(NORTH, postToLabel, B, NORTH, this);
         layout.putConstraint(NORTH, checkboxPanel, S, SOUTH, postToLabel);
         layout.putConstraint(SOUTH, makePostButton, -B, SOUTH, this);
