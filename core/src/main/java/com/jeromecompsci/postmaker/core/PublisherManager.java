@@ -2,17 +2,16 @@ package com.jeromecompsci.postmaker.core;
 
 import com.jeromecompsci.postmaker.core.publishers.*;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  * @author derek
  */
 public class PublisherManager {
 
-    private Map<String, Publisher> publisherMap = new TreeMap<String, Publisher>();
+    private Map<String, Publisher> publisherMap = new LinkedHashMap<String, Publisher>();
 
     public PublisherManager() {
         publisherMap.put("WordPress", new WordpressPublisher());
