@@ -31,7 +31,11 @@ public class InputPanel extends JPanel {
         Font defaultFont = titleField.getFont();
         titleField.setFont(new Font(defaultFont.getName(), Font.BOLD, defaultFont.getSize() + 2));
         fullTextArea = new JTextArea();
+        fullTextArea.setLineWrap(true);
+        fullTextArea.setWrapStyleWord(true);
         blurbTextArea = new JTextArea();
+        blurbTextArea.setLineWrap(true);
+        blurbTextArea.setWrapStyleWord(true);
         categoriesField = new JTextField();
     }
 
