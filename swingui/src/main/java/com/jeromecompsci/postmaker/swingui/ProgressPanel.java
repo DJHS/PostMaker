@@ -6,6 +6,7 @@ import com.jeromecompsci.postmaker.core.PublisherManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -24,15 +25,28 @@ public class ProgressPanel extends JPanel {
         this.post = post;
         this.publisherManager = publisherManager;
         this.selectedPublisherNames = selectedPublisherNames;
-        EventQueue.invokeLater(new Runnable() {
-            @Override public void run() {
-                initLayout();
-            }
-        });
+        initLayout();
     }
 
-    public void beginPublishing() {
-
+    public void beginPublishing() throws IOException {
+        System.out.println("beginPublishing() of ProgressPanel called.");
+        post.loadAllExternalResources();
+        Thread t = new Thread(new Runnable() {
+            @Override public void run() {
+                post.render();
+                for(int i=0; i<cardPanel.getComponentCount(); i++) {
+                    ProgressCard card = (ProgressCard) cardPanel.getComponent(i);
+                    card.doPublish(post);
+//                    try {
+//                        wait();
+//                    } catch (InterruptedException e) {
+//                        // Do Nothing
+//
+// }
+                }
+            }
+        });
+        t.start();
     }
 
     static final int B = 16; // Borders around
