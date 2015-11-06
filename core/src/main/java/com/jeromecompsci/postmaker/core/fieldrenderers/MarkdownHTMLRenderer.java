@@ -1,6 +1,7 @@
 package com.jeromecompsci.postmaker.core.fieldrenderers;
 
 import com.jeromecompsci.postmaker.core.FieldRenderer;
+import org.pegdown.Extensions;
 import org.pegdown.PegDownProcessor;
 
 /**
@@ -12,7 +13,8 @@ public enum MarkdownHTMLRenderer implements FieldRenderer{
 
     public String getRenderedString(String rawString) {
         if (pegDownProcessor == null) {
-            pegDownProcessor = new PegDownProcessor();
+            pegDownProcessor = new PegDownProcessor(Extensions.AUTOLINKS
+                    | Extensions.SMARTS | Extensions.TASKLISTITEMS);
         }
         return pegDownProcessor.markdownToHtml(rawString);
     }
