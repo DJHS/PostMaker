@@ -3,7 +3,7 @@ package com.jeromecompsci.postmaker.swingui;
 import com.jeromecompsci.postmaker.core.PublisherManager;
 
 import javax.swing.*;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -43,6 +43,15 @@ public class ActionPanel extends JPanel {
 
     JButton makePostButton;
     JPanel checkboxPanel;
+
+    @Override public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        this.makePostButton.setEnabled(enabled);
+        this.checkboxPanel.setEnabled(enabled);
+        for (Component c : checkboxPanel.getComponents()) {
+            c.setEnabled(enabled);
+        }
+    }
 
     public void initComponents() {
         makePostButton = new JButton("Make Post!");

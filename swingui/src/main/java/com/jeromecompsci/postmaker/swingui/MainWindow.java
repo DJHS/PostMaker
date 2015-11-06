@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.EventQueue;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.jeromecompsci.postmaker.core.PostModel;
@@ -40,7 +41,11 @@ public class MainWindow extends JFrame {
         PostModel post = this.getPostModel();
         ProgressPanel panel = new ProgressPanel(post, publisherManager, publisherNames);
         this.showProgressPanel(panel);
-        panel.beginPublishing();
+        try {
+            panel.beginPublishing();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showInputPanel() {
@@ -62,6 +67,7 @@ public class MainWindow extends JFrame {
             @Override public void run() {
                 System.out.println("showProgressPanel() called.");
                 if (progressPanel == null) {
+                    actionPanel.setEnabled(false);
                     inputPanel.setVisible(false);
                     remove(inputPanel);
                     progressPanel = panel;
